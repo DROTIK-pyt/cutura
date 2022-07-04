@@ -1,5 +1,4 @@
 <?php
-	
 /**
  * Plugin Name: tr-core
  * Description: Ядро темы themerage
@@ -11,5 +10,3 @@
  *
  * Version:     1.0
  */
-
- 
