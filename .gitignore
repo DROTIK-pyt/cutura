@@ -1,5 +1,6 @@
 wp-admin/
 wp-includes/
+languages/
 
 index.php
 readme.html
