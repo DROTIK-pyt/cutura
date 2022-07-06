@@ -10,50 +10,82 @@
  */
 
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
+
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
 	<?php wp_head(); ?>
+
+    <?php if (is_page_template( 'main-page-dark.php' )): ?>
+        <style>
+            body{
+                background-color: #006D77;
+                color: #EDF6F9;
+            }
+        </style>
+    <?php endif; ?>
+
 </head>
+<body>
 
-<body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
-<div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'themerage' ); ?></a>
-
-	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$themerage_description = get_bloginfo( 'description', 'display' );
-			if ( $themerage_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $themerage_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
-
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'themerage' ); ?></button>
-			<?php
-			wp_nav_menu(
-				array(
-					'theme_location' => 'menu-1',
-					'menu_id'        => 'primary-menu',
-				)
-			);
-			?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
+<header class="header menu__outside">
+    <div id="overlay1" class="visible-xs-block hide"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="header__inner">
+                    <div class="header__logo">
+                        <p>Cutura</p>
+                    </div>
+                    <?php 
+                        wp_nav_menu( [
+                            'theme_location'  => '',
+                            'menu'            => '',
+                            'container'       => false,
+                            'menu_class'      => 'header__items hidden-xs',
+                            'echo'            => true,
+                            'items_wrap'      => '<ul class="%2$s">%3$s</ul>',
+                            'depth'           => 0,
+                        ] );
+                    ?>
+                    <!-- <ul class="header__items hidden-xs">
+                        <li><a class="header__item-active" href="bottom-homepage.html">Home</a></li> 
+                        <li><a class="header__item" href="bottom-about.html">about</a></li>
+                        <li><a class="header__item" href="subscription.html">subscription</a></li>
+                        <li><a class="header__item" href="bottom-community.html">Community</a></li>
+                        <li><a class="header__item" href="bottom-shop.html">Shop</a></li>
+                        <li><a class="header__item" href="bottom-cart.html">Cart</a></li>
+                    </ul> -->
+                    <div class="btn-mobile-menu-open">
+                        <span></span>
+                    </div>
+                    <div class="header__wrapper mobile-menu visible-xs-block">
+                        <?php 
+                            wp_nav_menu( [
+                                'theme_location'  => '',
+                                'menu'            => '',
+                                'container'       => false,
+                                'menu_class'      => 'header__items',
+                                'echo'            => true,
+                                'items_wrap'      => '<ul class="%2$s">%3$s</ul>',
+                                'depth'           => 0,
+                            ] );
+                        ?>
+                        <!-- <ul class="header__items">
+                            <li><a class="header__item-active" href="bottom-homepage.html">Home</a></li> 
+                            <li><a class="header__item" href="bottom-about.html">about</a></li>
+                            <li><a class="header__item" href="subscription.html">subscription</a></li>
+                            <li><a class="header__item" href="bottom-community.html">Community</a></li>
+                            <li><a class="header__item" href="bottom-shop.html">Shop</a></li>
+                            <li><a class="header__item" href="bottom-cart.html">Cart</a></li>
+                        </ul> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

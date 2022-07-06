@@ -49,7 +49,8 @@ function themerage_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
-			'menu-1' => esc_html__( 'Primary', 'themerage' ),
+			'header' => esc_html__( 'Header', 'themerage' ),
+			'footer' => esc_html__( 'Footer', 'themerage' ),
 		)
 	);
 
@@ -125,10 +126,10 @@ function themerage_widgets_init() {
 			'name'          => esc_html__( 'Sidebar', 'themerage' ),
 			'id'            => 'sidebar-1',
 			'description'   => esc_html__( 'Add widgets here.', 'themerage' ),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
+			'before_widget' => '<div class="homepage__left-left">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h3 class="homepage__left-subtitle">',
+			'after_title'   => '</h3>',
 		)
 	);
 }
@@ -138,14 +139,13 @@ add_action( 'widgets_init', 'themerage_widgets_init' );
  * Enqueue scripts and styles.
  */
 function themerage_scripts() {
-	wp_enqueue_style( 'themerage-style', get_stylesheet_uri(), array(), _S_VERSION );
-	wp_style_add_data( 'themerage-style', 'rtl', 'replace' );
+	wp_enqueue_style( 'themerage-swiper', 'https://unpkg.com/swiper@8/swiper-bundle.min.css', array(), _S_VERSION );
+	wp_enqueue_style( 'themerage-style', get_stylesheet_uri(), array('themerage-swiper'), _S_VERSION );
 
 	wp_enqueue_script( 'themerage-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
-
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
+	wp_enqueue_script( 'themerage-bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array('jQuery'), _S_VERSION, true );
+	wp_enqueue_script( 'themerage-swiper', 'https://unpkg.com/swiper@8/swiper-bundle.min.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'themerage-main', get_template_directory_uri() . '/js/script.js', array('themerage-bootstrap', 'themerage-swiper'), _S_VERSION, true );
 }
 add_action( 'wp_enqueue_scripts', 'themerage_scripts' );
 
